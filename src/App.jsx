@@ -1,8 +1,18 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AuthLayout from './layouts/AuthLayout';
+import Login from './pages/Login';
+import Registrar from './pages/Registrar';
+
 function App() {
 	return (
-		<div>
-			<h1>UpTask</h1>
-		</div>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<AuthLayout />}>
+					<Route index element={<Login />} />
+					<Route path="registrar" element={<Registrar />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
 	);
 }
 

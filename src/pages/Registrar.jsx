@@ -1,9 +1,11 @@
 import { Link, Form, useActionData } from "react-router-dom"
 import Alerta from "../components/Alerta"
+import axios from "axios"
 
 export async function action({ request }) {
   const formData = await request.formData()
   const datos = Object.fromEntries(formData)
+  const { nombre, email, password, password2 } = datos
 
   // Validación
   const errores = []
@@ -11,24 +13,24 @@ export async function action({ request }) {
     errores.push("Todos los campos son obligatorios")
   }
 
-  if (datos.password.length < 6) {
+  if (password.length < 6) {
     errores.push("La contraseña es demasiado corta, agrega al menos 6 caracteres")
   }
 
-  if (datos.password !== datos.password2) {
+  if (password !== password2) {
     errores.push("Las contraseñas no coinciden")
   }
-
+  // console.log(datos)
   // Crear el usuario en la API
+  if (errores.length) {
+    try {
+      const respuesta = await axios.post("http://http://localhost:4000/api/usuarios", { nombre, email, password })
+      console.log(respuesta)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  console.log("Creando ...")
-  // if (datos.password !== datos.password2) {
-  //   errores.push("Las contraseñas no coinciden")
-  // }
-
-  // if (datos.password.length < 6) {
-  //   errores.push("La contraseña es demasiado corta, agrega al menos 6 caracteres")
-  // }
 
   return errores
 }

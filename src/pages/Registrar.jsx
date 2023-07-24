@@ -20,17 +20,16 @@ export async function action({ request }) {
   if (password !== password2) {
     errores.push("Las contraseñas no coinciden")
   }
-  // console.log(datos)
+
   // Crear el usuario en la API
-  if (errores.length) {
+  if (!errores.length) {
     try {
-      const respuesta = await axios.post("http://http://localhost:4000/api/usuarios", { nombre, email, password })
-      console.log(respuesta)
+      const { data } = await axios.post("http://127.0.0.1:4000/api/usuarios", { nombre, email, password })
+      console.log(data)
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
     }
   }
-
 
   return errores
 }

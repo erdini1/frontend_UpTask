@@ -9,18 +9,19 @@ export async function action({ request }) {
   const errores = []
   if (Object.values(datos).includes("")) {
     errores.push("Todos los campos son obligatorios")
-  } 
-  
-  // else {
-  //   if (datos.password !== datos.password2) {
-  //     errores.push("Las contraseñas no coinciden")
-  //   } else {
-  //     if (datos.password.length < 6) {
-  //       errores.push("La contraseña es demasiado corta, agrega al menos 6 caracteres")
-  //     }
-  //   }
-  // }
+  }
 
+  if (datos.password.length < 6) {
+    errores.push("La contraseña es demasiado corta, agrega al menos 6 caracteres")
+  }
+
+  if (datos.password !== datos.password2) {
+    errores.push("Las contraseñas no coinciden")
+  }
+
+  // Crear el usuario en la API
+
+  console.log("Creando ...")
   // if (datos.password !== datos.password2) {
   //   errores.push("Las contraseñas no coinciden")
   // }
@@ -35,7 +36,6 @@ export async function action({ request }) {
 const Registrar = () => {
 
   const errores = useActionData()
-  console.log(errores)
 
   return (
     <>

@@ -8,41 +8,49 @@ export async function action({ request }) {
   const { nombre, email, password, password2 } = datos
 
   // Validación
-  const errores = []
-  if (Object.values(datos).includes("")) {
-    errores.push("Todos los campos son obligatorios")
+  const alerta = {}
+  if ([nombre, email, password, password2].includes("")) {
+    alerta.msg = "Todos los campos son obligatorios"
+    alerta.error = true
+    return alerta
   }
 
   if (password.length < 6) {
-    errores.push("La contraseña es demasiado corta, agrega al menos 6 caracteres")
+    alerta.msg = "La contraseña debe contener al menos 6 caracteres"
+    alerta.error = true
+    return alerta
   }
 
   if (password !== password2) {
-    errores.push("Las contraseñas no coinciden")
+    alerta.msg = "Las contraseñas no coinciden"
+    alerta.error = true
+    return alerta
   }
 
   // Crear el usuario en la API
-  if (!errores.length) {
-    try {
-      const { data } = await axios.post("http://127.0.0.1:4000/api/usuarios", { nombre, email, password })
-      console.log(data)
-    } catch (error) {
-      console.log(error.message)
-    }
+  // if (!errores.length) {
+  try {
+    const { data } = await axios.post("http://127.0.0.1:4000/api/usuarios", { nombre, email, password })
+    alerta.msg = data.msg
+    alerta.error = false
+  } catch (error) {
+    alerta.msg = error.response.data.msg
+    alerta.error = true
   }
 
-  return errores
+  return alerta
 }
 
 const Registrar = () => {
 
-  const errores = useActionData()
+  const alerta = useActionData()
 
   return (
     <>
       <h1 className="text-w font-black text-6xl capitalize text-green-700">Crea tu cuenta y administra tus <span className="text-slate-800">proyectos</span></h1>
 
-      {errores?.length !== 0 ? errores?.map((error, i) => <Alerta key={i} error={error} />) : ""}
+      {alerta?.msg && <Alerta alerta={alerta} />}
+      {/* {errores?.length !== 0 ? errores?.map((error, i) => <Alerta key={i} error={error} />) : ""} */}
 
       <Form
         method="post"

@@ -9,6 +9,8 @@ import OlvidePassword, { action as olvidePasswordAction } from './pages/OlvidePa
 import NuevoPassword from './pages/NuevoPassword';
 import ConfirmarCuenta from './pages/ConfirmarCuenta';
 
+import { AuthProvider } from './context/AuthProvider';
+
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -42,6 +44,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<AuthProvider>
+			<RouterProvider router={router} />
+		</AuthProvider>
 	</React.StrictMode>
 );

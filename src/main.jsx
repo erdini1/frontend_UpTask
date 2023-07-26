@@ -5,7 +5,7 @@ import './index.css';
 import AuthLayout from './layouts/AuthLayout';
 import Login from './pages/Login';
 import Registrar, { action as registrarAction } from './pages/Registrar';
-import OlvidePassword from './pages/OlvidePassword';
+import OlvidePassword, { action as olvidePasswordAction } from './pages/OlvidePassword';
 import NuevoPassword from './pages/NuevoPassword';
 import ConfirmarCuenta from './pages/ConfirmarCuenta';
 
@@ -25,7 +25,8 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'olvide-password',
-				element: <OlvidePassword />
+				element: <OlvidePassword />,
+				action: olvidePasswordAction
 			},
 			{
 				path: 'olvide-password/:token',

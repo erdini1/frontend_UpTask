@@ -1,11 +1,53 @@
-import { Link } from "react-router-dom"
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import Alerta from "../components/Alerta"
+import clienteAxios from "../config/clienteAxios"
 
 const Login = () => {
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  // TODO: Mover la alerta hacia su propio Context
+  const [alerta, setAlerta] = useState({})
+
+
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    if ([email, password].includes("")) {
+      setAlerta({
+        msg: "Todos los campos son obligatorios",
+        error: true
+      })
+      return
+    }
+
+    try {
+
+    } catch (error) {
+      setAlerta({
+        msg: error.response.data.msg,
+        error: true
+      })
+    }
+
+
+    console.log("Enviando datos")
+  }
+
+  const { msg } = alerta
+
   return (
     <>
       <h1 className="text-w font-black text-6xl capitalize text-green-700">Inicia sesión y administra tus <span className="text-slate-800">proyectos</span></h1>
 
-      <form className="my-10 bg-white shadow rounded-lg p-10">
+      {msg && <Alerta alerta={alerta} />}
+
+      <form
+        onSubmit={handleSubmit}
+        className="my-10 bg-white shadow rounded-lg p-10"
+      >
         <div className="my-5">
           <label
             htmlFor="email"
@@ -16,6 +58,8 @@ const Login = () => {
             type="email"
             placeholder="Correo electronico"
             className="w-full mt-3 p-3 border bg-gray-50 rounded"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <div className="my-5">
@@ -28,6 +72,8 @@ const Login = () => {
             type="password"
             placeholder="Contraseña"
             className="w-full mt-3 p-3 border bg-gray-50 rounded"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
           />
         </div>
 

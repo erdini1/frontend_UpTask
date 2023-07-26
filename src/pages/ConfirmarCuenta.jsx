@@ -13,6 +13,7 @@ const ConfirmarCuenta = () => {
 
   const confirmarCuenta = async () => {
     try {
+      // TODO: Mover hacia un cliente axios
       const url = `${import.meta.env.VITE_BACKEND_URL}/api/usuarios/confirmar/${id}`
       const { data } = await axios(url)
 

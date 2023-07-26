@@ -15,6 +15,7 @@ export async function action({ request }) {
   }
 
   try {
+    // TODO: Mover hacia un cliente axios
     const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/olvide-password`, { email })
     alerta.msg = data.msg
     alerta.error = false

@@ -23,7 +23,16 @@ const Login = () => {
       return
     }
 
+
     try {
+      const { data } = await clienteAxios.post("/usuarios/login", {
+        email,
+        password
+      })
+      setAlerta({})
+
+      // Almacenando en LocalStorage el token del usuario
+      localStorage.setItem("token", data.token)
 
     } catch (error) {
       setAlerta({
@@ -31,9 +40,6 @@ const Login = () => {
         error: true
       })
     }
-
-
-    console.log("Enviando datos")
   }
 
   const { msg } = alerta

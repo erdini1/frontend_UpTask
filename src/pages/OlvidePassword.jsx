@@ -1,5 +1,5 @@
 import { Link, Form, useActionData } from "react-router-dom"
-import axios from "axios"
+import clienteAxios from "../config/clienteAxios"
 import Alerta from "../components/Alerta"
 
 export async function action({ request }) {
@@ -15,8 +15,7 @@ export async function action({ request }) {
   }
 
   try {
-    // TODO: Mover hacia un cliente axios
-    const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/olvide-password`, { email })
+    const { data } = await clienteAxios.post(`/usuarios/olvide-password`, { email })
     alerta.msg = data.msg
     alerta.error = false
     alerta.form = true
@@ -27,7 +26,6 @@ export async function action({ request }) {
 
   return alerta
 }
-
 
 const OlvidePassword = () => {
 

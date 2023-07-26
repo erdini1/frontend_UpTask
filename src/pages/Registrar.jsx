@@ -1,6 +1,6 @@
 import { Link, Form, useActionData } from "react-router-dom"
 import Alerta from "../components/Alerta"
-import axios from "axios"
+import clienteAxios from "../config/clienteAxios"
 
 export async function action({ request }) {
   const formData = await request.formData()
@@ -29,8 +29,7 @@ export async function action({ request }) {
 
   // Crear el usuario en la API
   try {
-    // TODO: Mover hacia un cliente axios
-    const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios`, { nombre, email, password })
+    const { data } = await clienteAxios.post(`/usuarios`, { nombre, email, password })
     alerta.msg = data.msg
     alerta.error = false
     alerta.form = true

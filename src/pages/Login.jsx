@@ -11,7 +11,7 @@ const Login = () => {
   // TODO: Mover la alerta hacia su propio Context
   const [alerta, setAlerta] = useState({})
 
-
+  const { setAuth } = useAuth()
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -34,6 +34,7 @@ const Login = () => {
 
       // Almacenando en LocalStorage el token del usuario
       localStorage.setItem("token", data.token)
+      setAuth(data)
 
     } catch (error) {
       setAlerta({

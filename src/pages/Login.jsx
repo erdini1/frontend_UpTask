@@ -35,6 +35,8 @@ const Login = () => {
       localStorage.setItem("token", data.token)
       setAuth(data)
 
+      // TODO: Revisar el tema del login ya que no funciona correctamente
+
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,

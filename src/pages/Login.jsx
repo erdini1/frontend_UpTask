@@ -11,7 +11,10 @@ const Login = () => {
   // TODO: Mover la alerta hacia su propio Context
   const [alerta, setAlerta] = useState({})
 
-  const { setAuth } = useAuth()
+  const { auth, setAuth, cargando } = useAuth()
+
+  console.log(auth)
+  console.log(cargando)
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -23,7 +26,6 @@ const Login = () => {
       })
       return
     }
-
 
     try {
       const { data } = await clienteAxios.post("/usuarios/login", {

@@ -7,11 +7,28 @@ const ProyectosContext = createContext()
 const ProyectosProvider = () => {
 
     const [proyectos, setProyectos] = useState([])
+    const [alerta, setAlerta] = useState({})
+
+    const mostrarAlerta = alerta => {
+        setAlerta(alerta)
+
+        setTimeout(() => {
+            setAlerta({})
+        }, 5000)
+    }
+
+    const submitProyecto = async proyecto => {
+        console.log(proyecto)
+    }
+
 
     return (
         <ProyectosContext.Provider
             value={{
                 proyectos,
+                mostrarAlerta,
+                alerta,
+                submitProyecto
             }}
         >
             <Outlet />

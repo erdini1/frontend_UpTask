@@ -12,6 +12,7 @@ import ConfirmarCuenta from './pages/ConfirmarCuenta';
 // Proyectos
 import RutaProtegida from './layouts/RutaProtegida';
 import Proyectos from './pages/Proyectos';
+import NuevoProyecto from './pages/NuevoProyecto';
 
 // Context
 import { AuthProvider } from './context/AuthProvider';
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
 					{
 						index: true,
 						element: <Proyectos />
+					},
+					{
+						path: "crear-proyecto",
+						element: <NuevoProyecto />
 					}
 				]
 			}
@@ -65,7 +70,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		{/* <AuthProvider> */}
-			<RouterProvider router={router} />
+		<RouterProvider router={router} />
 		{/* </AuthProvider> */}
 	</React.StrictMode>
 );

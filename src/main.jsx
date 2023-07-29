@@ -16,6 +16,7 @@ import NuevoProyecto from './pages/NuevoProyecto';
 
 // Context
 import { AuthProvider } from './context/AuthProvider';
+import { ProyectosProvider } from './context/ProyectosProvider';
 
 const router = createBrowserRouter([
 	{
@@ -50,16 +51,21 @@ const router = createBrowserRouter([
 				]
 			},
 			{
-				path: "/proyectos",
-				element: <RutaProtegida />,
+				element: <ProyectosProvider />,
 				children: [
 					{
-						index: true,
-						element: <Proyectos />
-					},
-					{
-						path: "crear-proyecto",
-						element: <NuevoProyecto />
+						path: "/proyectos",
+						element: <RutaProtegida />,
+						children: [
+							{
+								index: true,
+								element: <Proyectos />
+							},
+							{
+								path: "crear-proyecto",
+								element: <NuevoProyecto />
+							}
+						]
 					}
 				]
 			}
@@ -69,8 +75,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
-		{/* <AuthProvider> */}
 		<RouterProvider router={router} />
-		{/* </AuthProvider> */}
 	</React.StrictMode>
 );

@@ -11,7 +11,7 @@ const RutaProtegida = () => {
 
     return (
         <>
-            {auth._id ? "Autenticado" : <Navigate to={"/"} />}
+            {auth._id ? <Outlet /> : <Navigate to={"/"} />}
         </>
     )
 }

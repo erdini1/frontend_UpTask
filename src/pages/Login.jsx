@@ -11,10 +11,7 @@ const Login = () => {
   // TODO: Mover la alerta hacia su propio Context
   const [alerta, setAlerta] = useState({})
 
-  const { auth, setAuth, cargando } = useAuth()
-
-  console.log(auth)
-  console.log(cargando)
+  const { setAuth } = useAuth()
 
   const handleSubmit = async e => {
     e.preventDefault()

@@ -18,49 +18,54 @@ import { AuthProvider } from './context/AuthProvider';
 
 const router = createBrowserRouter([
 	{
-		path: '/',
-		element: <AuthLayout />,
+		element: <AuthProvider />,
 		children: [
 			{
-				index: true,
-				element: <Login />
+				path: '/',
+				element: <AuthLayout />,
+				children: [
+					{
+						index: true,
+						element: <Login />
+					},
+					{
+						path: 'registrar',
+						element: <Registrar />,
+						action: registrarAction
+					},
+					{
+						path: 'olvide-password',
+						element: <OlvidePassword />,
+						action: olvidePasswordAction
+					},
+					{
+						path: 'olvide-password/:token',
+						element: <NuevoPassword />
+					},
+					{
+						path: 'confirmar/:id',
+						element: <ConfirmarCuenta />
+					}
+				]
 			},
 			{
-				path: 'registrar',
-				element: <Registrar />,
-				action: registrarAction
-			},
-			{
-				path: 'olvide-password',
-				element: <OlvidePassword />,
-				action: olvidePasswordAction
-			},
-			{
-				path: 'olvide-password/:token',
-				element: <NuevoPassword />
-			},
-			{
-				path: 'confirmar/:id',
-				element: <ConfirmarCuenta />
+				path: "/proyectos",
+				element: <RutaProtegida />,
+				children: [
+					{
+						index: true,
+						element: <Proyectos />
+					}
+				]
 			}
 		]
 	},
-	{
-		path: "/proyectos",
-		element: <RutaProtegida />,
-		children: [
-			{
-				index: true,
-				element: <Proyectos />
-			}
-		]
-	}
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
-		<AuthProvider>
+		{/* <AuthProvider> */}
 			<RouterProvider router={router} />
-		</AuthProvider>
+		{/* </AuthProvider> */}
 	</React.StrictMode>
 );

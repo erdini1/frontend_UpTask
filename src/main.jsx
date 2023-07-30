@@ -14,6 +14,7 @@ import RutaProtegida from './layouts/RutaProtegida';
 import Proyectos from './pages/Proyectos';
 import NuevoProyecto from './pages/NuevoProyecto';
 import Proyecto from './pages/Proyecto';
+import EditarProyecto from './pages/EditarProyecto';
 
 // Context
 import { AuthProvider } from './context/AuthProvider';
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
 							{
 								path: "crear-proyecto",
 								element: <NuevoProyecto />
+							},
+							{
+								path: "editar/:id",
+								element: <EditarProyecto />
 							},
 							{
 								path: ":id",

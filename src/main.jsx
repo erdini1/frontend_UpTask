@@ -13,6 +13,7 @@ import ConfirmarCuenta from './pages/ConfirmarCuenta';
 import RutaProtegida from './layouts/RutaProtegida';
 import Proyectos from './pages/Proyectos';
 import NuevoProyecto from './pages/NuevoProyecto';
+import Proyecto from './pages/Proyecto';
 
 // Context
 import { AuthProvider } from './context/AuthProvider';
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
 							{
 								path: "crear-proyecto",
 								element: <NuevoProyecto />
+							},
+							{
+								path: ":id",
+								element: <Proyecto />
 							}
 						]
 					}

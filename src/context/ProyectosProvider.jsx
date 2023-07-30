@@ -17,6 +17,7 @@ const ProyectosProvider = () => {
                 const token = localStorage.getItem("token")
                 if (!token) return
 
+                // TODO: Pasar esta configuración a otro archivo
                 const config = {
                     headers: {
                         "Content-Type": "application/json",
@@ -54,6 +55,7 @@ const ProyectosProvider = () => {
             if (!token) return
 
             // Datos de autenticación que tienen que ser pasadas en cliente axios
+            // TODO: Pasar esta configuración a otro archivo 
             const config = {
                 headers: {
                     "Content-Type": "application/json",

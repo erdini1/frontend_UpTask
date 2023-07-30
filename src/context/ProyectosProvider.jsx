@@ -34,8 +34,6 @@ const ProyectosProvider = () => {
                     error: true
                 })
             }
-
-
         }
         obtenerProyectos()
     }, [])
@@ -82,9 +80,27 @@ const ProyectosProvider = () => {
                 error: true
             })
         }
-
     }
 
+    const obtenerProyecto = async id => {
+        const token = localStorage.getItem("token")
+        if (!token) return
+
+        try {
+            // TODO: Pasar esta configuración a otro archivo 
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const { data } = await clienteAxios(`/proyectos/${id}`, config)
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <ProyectosContext.Provider
@@ -92,7 +108,8 @@ const ProyectosProvider = () => {
                 proyectos,
                 mostrarAlerta,
                 alerta,
-                submitProyecto
+                submitProyecto,
+                obtenerProyecto
             }}
         >
             <Outlet />

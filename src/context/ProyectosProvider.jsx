@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import clienteAxios from "../config/clienteAxios";
 
 const ProyectosContext = createContext()
@@ -12,6 +12,8 @@ const ProyectosProvider = () => {
     const [cargando, setCargando] = useState(false)
 
     const navigate = useNavigate();
+
+    const params = useParams()
 
     useEffect(() => {
         const obtenerProyectos = async () => {
@@ -49,7 +51,53 @@ const ProyectosProvider = () => {
     }
 
     const submitProyecto = async proyecto => {
-        // Agregar el proyecto a la API
+
+        if (params.id) {
+            editarProyecto(proyecto)
+        } else {
+            nuevoProyecto(proyecto)
+        }
+        return
+    }
+
+    // Editar el proyecto de la API
+    const editarProyecto = async proyecto => {
+        try {
+            const token = localStorage.getItem("token")
+            if (!token) return
+
+            // TODO: Pasar esta configuración a otro archivo 
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const { data } = await clienteAxios.put(`/proyectos/${params.id}`, proyecto, config)
+
+            // Sincronizar el State
+
+
+            // Mostrar la Alerta
+            setAlerta({
+                msg: "Proyecto modificado correctamente",
+                error: false
+            })
+
+            // Redireccionar al usuario
+            setTimeout(() => {
+                setAlerta({})
+                navigate("/proyectos")
+            }, 2000)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // Agregar el proyecto a la API
+    const nuevoProyecto = async proyecto => {
         try {
             const token = localStorage.getItem("token")
             if (!token) return
@@ -78,7 +126,7 @@ const ProyectosProvider = () => {
 
         } catch (error) {
             setAlerta({
-                msg: error.response.data.msg,
+                msg: error?.response.data.msg,
                 error: true
             })
         }

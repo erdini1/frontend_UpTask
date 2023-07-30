@@ -6,7 +6,8 @@ import Sidebar from "../components/Sidebar"
 const RutaProtegida = () => {
 
     const { auth, cargando } = useAuth()
-
+    
+    // TODO: Agregar pulse de tailwindcss o skeleton loaders
     if (cargando) return "Cargando..."
 
     return (

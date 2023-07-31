@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import Alerta from "../components/Alerta"
 import clienteAxios from "../config/clienteAxios"
 import useAuth from "../hooks/useAuth"
@@ -11,7 +11,7 @@ const Login = () => {
   // TODO: Mover la alerta hacia su propio Context
   const [alerta, setAlerta] = useState({})
 
-  const { setAuth } = useAuth()
+  const { setAuth, auth } = useAuth()
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -35,8 +35,6 @@ const Login = () => {
       localStorage.setItem("token", data.token)
       setAuth(data)
 
-      // TODO: Revisar el tema del login ya que no funciona correctamente
-
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,
@@ -44,6 +42,13 @@ const Login = () => {
       })
     }
   }
+
+  const navigate = useNavigate()
+  const token = localStorage.getItem("token")
+
+  useEffect(() => {
+    if (token) navigate("/proyectos")
+  }, [auth._id])
 
   const { msg } = alerta
 

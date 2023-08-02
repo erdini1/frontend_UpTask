@@ -43,6 +43,7 @@ const Login = () => {
     }
   }
 
+  // VER BIEN ESTA PARTE, si el back end no funciona me hace un loop infinito
   const navigate = useNavigate()
   const token = localStorage.getItem("token")
 

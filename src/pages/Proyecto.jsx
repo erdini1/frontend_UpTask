@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import useProyectos from "../hooks/useProyectos"
+import ModalFormularioTarea from "../components/ModalFormularioTarea"
 // import SkeletonLoader from "../components/SkeletonLoader"
 
 const Proyecto = () => {
@@ -43,6 +44,9 @@ const Proyecto = () => {
 
                 Nueva Tarea
             </button>
+
+            <ModalFormularioTarea />
+
         </>
     )
 }

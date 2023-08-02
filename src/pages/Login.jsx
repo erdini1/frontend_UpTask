@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Alerta from "../components/Alerta"
 import clienteAxios from "../config/clienteAxios"
 import useAuth from "../hooks/useAuth"
@@ -11,7 +11,9 @@ const Login = () => {
   // TODO: Mover la alerta hacia su propio Context
   const [alerta, setAlerta] = useState({})
 
-  const { setAuth, auth } = useAuth()
+  const navigate = useNavigate()
+
+  const { setAuth } = useAuth()
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -34,6 +36,7 @@ const Login = () => {
       // Almacenando en LocalStorage el token del usuario
       localStorage.setItem("token", data.token)
       setAuth(data)
+      navigate("/proyectos")
 
     } catch (error) {
       setAlerta({
@@ -42,14 +45,6 @@ const Login = () => {
       })
     }
   }
-
-  // VER BIEN ESTA PARTE, si el back end no funciona me hace un loop infinito
-  const navigate = useNavigate()
-  const token = localStorage.getItem("token")
-
-  useEffect(() => {
-    if (token) navigate("/proyectos")
-  }, [auth._id])
 
   const { msg } = alerta
 

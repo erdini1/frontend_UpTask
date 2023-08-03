@@ -2,6 +2,7 @@ import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProyectos from '../hooks/useProyectos'
 import Alerta from './Alerta'
+import { useParams } from 'react-router-dom'
 
 const PRIORIDAD = ["Baja", "Media", "Alta"]
 
@@ -9,14 +10,17 @@ const ModalFormularioTarea = () => {
 
     const [nombre, setNombre] = useState("")
     const [descripcion, setDescripcion] = useState("")
+    const [fechaEntrega, setFechaEntrega] = useState("")
     const [prioridad, setPrioridad] = useState("")
+
+    const params = useParams()
 
     const { modalFormularioTarea, handleModalTarea, alerta, mostrarAlerta, submitTarea } = useProyectos()
 
     const handleSubmit = e => {
         e.preventDefault()
 
-        if ([nombre, descripcion, prioridad].includes("")) {
+        if ([nombre, descripcion, fechaEntrega, prioridad].includes("")) {
             mostrarAlerta({
                 msg: "Todos los campos son obligatorios",
                 error: true
@@ -27,7 +31,9 @@ const ModalFormularioTarea = () => {
         submitTarea({
             nombre,
             descripcion,
-            prioridad
+            fechaEntrega,
+            prioridad,
+            proyecto: params.id
         })
 
     }
@@ -122,6 +128,21 @@ const ModalFormularioTarea = () => {
                                                 placeholder='Descripción de la Tarea'
                                                 value={descripcion}
                                                 onChange={e => setDescripcion(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-700 uppercase font-bold text-sm'
+                                                htmlFor='fechaEntrega'
+                                            >
+                                                Fecha Entrega
+                                            </label>
+                                            <input
+                                                type="date"
+                                                id="fechaEntrega"
+                                                className='border w-full p-2 mt-2 rounded'
+                                                value={fechaEntrega}
+                                                onChange={e => setFechaEntrega(e.target.value)}
                                             />
                                         </div>
                                         <div className='mb-5'>

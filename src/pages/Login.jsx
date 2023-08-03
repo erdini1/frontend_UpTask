@@ -46,6 +46,8 @@ const Login = () => {
     }
   }
 
+  // Ver por que cuando entro no me redirije a proyectos estando logueado
+
   const { msg } = alerta
 
   return (

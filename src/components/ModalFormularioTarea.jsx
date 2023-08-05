@@ -8,6 +8,7 @@ const PRIORIDAD = ["Baja", "Media", "Alta"]
 
 const ModalFormularioTarea = () => {
 
+    const [id, setId] = useState("")
     const [nombre, setNombre] = useState("")
     const [descripcion, setDescripcion] = useState("")
     const [fechaEntrega, setFechaEntrega] = useState("")
@@ -18,11 +19,19 @@ const ModalFormularioTarea = () => {
     const { modalFormularioTarea, handleModalTarea, alerta, mostrarAlerta, submitTarea, tarea } = useProyectos()
 
     useEffect(() => {
-        // setNombre(tarea.nombre)
-        // setDescripcion(tarea.descripcion)
-        // setFechaEntrega(tarea.fechaEntrega)
-        // setPrioridad(tarea.prioridad)
-        console.log(tarea)
+        if (tarea?._id) {
+            setId(tarea._id)
+            setNombre(tarea.nombre)
+            setDescripcion(tarea.descripcion)
+            setFechaEntrega(tarea.fechaEntrega?.split("T")[0])
+            setPrioridad(tarea.prioridad)
+            return
+        }
+        setId("")
+        setNombre("")
+        setDescripcion("")
+        setFechaEntrega("")
+        setPrioridad("")
     }, [tarea])
 
     const handleSubmit = async e => {
@@ -102,8 +111,8 @@ const ModalFormularioTarea = () => {
 
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                    <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                                        Crear Tarea
+                                    <Dialog.Title as="h3" className="text-2xl leading-6 font-bold text-gray-900">
+                                        {id ? "Editar Tarea" : "Crear Tarea"}
                                     </Dialog.Title>
 
                                     {msg && <Alerta alerta={alerta} />}
@@ -180,7 +189,7 @@ const ModalFormularioTarea = () => {
 
                                         <input
                                             type="submit"
-                                            value="Crear Tarea"
+                                            value={id ? "Guardar Cambios" : "Crear Tarea"}
                                             className='bg-green-600 hover:bg-green-700 w-full p-3 uppercase text-white font-bold cursor-pointer transition-colors rounded text-sm'
                                         />
 

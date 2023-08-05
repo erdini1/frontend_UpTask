@@ -192,6 +192,7 @@ const ProyectosProvider = () => {
 
     const handleModalTarea = () => {
         setModalFormularioTarea(!modalFormularioTarea)
+        setTarea({})
     }
 
     const submitTarea = async tarea => {

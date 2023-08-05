@@ -11,6 +11,7 @@ const ProyectosProvider = () => {
     const [proyecto, setProyecto] = useState({})
     const [cargando, setCargando] = useState(false)
     const [modalFormularioTarea, setModalFormularioTarea] = useState(false)
+    const [tarea, setTarea] = useState({})
 
     const navigate = useNavigate();
 
@@ -222,6 +223,12 @@ const ProyectosProvider = () => {
 
     }
 
+    // Mostrando el modal con la información de la tarea a editar
+    const handleModalEditarTarea = tarea => {
+        setTarea(tarea)
+        setModalFormularioTarea(true)
+    }
+
     return (
         <ProyectosContext.Provider
             value={{
@@ -235,7 +242,9 @@ const ProyectosProvider = () => {
                 eliminarProyecto,
                 modalFormularioTarea,
                 handleModalTarea,
-                submitTarea
+                submitTarea,
+                handleModalEditarTarea,
+                tarea
             }}
         >
             <Outlet />

@@ -6,10 +6,10 @@ const Tarea = ({ tarea }) => {
 
     return (
         <div className="border-b p-5 flex justify-between items-center">
+            {/* TODO: Ver botones en responsive */}
             <div className="">
                 <p className="mb-1 text-xl">{nombre}</p>
                 <p className="mb-1 text-sm text-gray-500 uppercase">{descripcion}</p>
-                {/* TODO: Formatear Fecha */}
                 <p className="mb-1 text-xl">{formatearFecha(fechaEntrega)}</p>
                 <p className="mb-1 text-gray-600">Prioridad: {prioridad}</p>
             </div>

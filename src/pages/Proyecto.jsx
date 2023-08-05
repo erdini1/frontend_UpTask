@@ -14,6 +14,8 @@ const Proyecto = () => {
         obtenerProyecto(id)
     }, [])
 
+    console.log(proyecto)
+
     // TODO: Agregar pulse de tailwindcss o skeleton loaders en el cargando
     if (cargando) return "Cargando..."
 
